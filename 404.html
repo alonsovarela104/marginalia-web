@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Abrir en Marginalia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0D0D0D; color: #F2EDE4;
+    font-family: Spectral, Georgia, serif; font-size: 17px; line-height: 1.65; }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+  h1, h2, .brand { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; }
+  h1 { font-size: 40px; line-height: 1.15; margin: 8px 0 24px; }
+  h2 { font-size: 26px; margin: 40px 0 8px; }
+  .brand { font-size: 22px; margin: 0; }
+  a { color: #C9687F; }
+  .brand a { color: #F2EDE4; text-decoration: none; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: #A8405A; }
+  p { color: #D9D2C6; }
+  .button { display: inline-block; padding: 14px 28px; border-radius: 12px;
+    background: #A8405A; color: #FBF7F0; text-decoration: none; font-weight: 500; }
+  .button.secondary { background: transparent; border: 1px solid #A8405A; color: #F2EDE4; }
+</style>
+</head>
+<body>
+<main>
+<p class="brand">Marginalia</p>
+<h1 id="title">Abriendo Marginalia...</h1>
+<p id="hint">Si no se abre sola, usa los botones.</p>
+<p><a id="open" class="button" href="#">Abrir en la app</a></p>
+<p><a id="store" class="button secondary" href="https://play.google.com/store/apps/details?id=com.marginalia.marginalia">Descargar Marginalia</a></p>
+</main>
+<script>
+(function () {
+  // ?r=/b/ID (abrir.html) o la ruta misma (404.html: /b/ID).
+  var route = new URLSearchParams(location.search).get('r') ||
+      location.pathname;
+  var valid = /^\/(b|users|lists|clubs)\/[A-Za-z0-9-]{1,64}$/.test(route);
+  var open = document.getElementById('open');
+  if (!valid) {
+    document.getElementById('title').textContent = 'Enlace no válido';
+    document.getElementById('hint').textContent = 'Descarga Marginalia para descubrir libros y lectores.';
+    open.style.display = 'none';
+    return;
+  }
+  var target = 'marginalia://open' + route;
+  open.href = target;
+  location.href = target;
+})();
+</script>
+</body>
+</html>

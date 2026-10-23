@@ -1,0 +1,1 @@
+[{"relation": ["delegate_permission/common.handle_all_urls"], "target": {"namespace": "android_app", "package_name": "com.marginalia.marginalia", "sha256_cert_fingerprints": ["C5:B8:86:7C:51:7F:29:5B:AB:2F:5D:C2:74:EF:A4:CA:3E:50:AA:DE:44:43:09:F2:2B:9E:52:5A:10:D0:18:A6"]}}]

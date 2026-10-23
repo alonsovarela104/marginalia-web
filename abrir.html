@@ -37,7 +37,9 @@
 </main>
 <script>
 (function () {
-  var route = new URLSearchParams(location.search).get('r') || '';
+  // ?r=/b/ID (abrir.html) o la ruta misma (404.html: /b/ID).
+  var route = new URLSearchParams(location.search).get('r') ||
+      location.pathname;
   var valid = /^\/(b|users|lists|clubs)\/[A-Za-z0-9-]{1,64}$/.test(route);
   var open = document.getElementById('open');
   if (!valid) {
