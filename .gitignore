@@ -1,0 +1,13 @@
+# Configuracion local de Claude Code y del conector de Blender: no se publica en el sitio.
+.claude/
+.mcp.json
+
+# Contexto de diseno de Impeccable (solo local, no se publica en el sitio).
+PRODUCT.md
+DESIGN.md
+.impeccable/
+
+# Prototipos, renders y herramientas de diseno: se quedan en local.
+prototipos/
+.taste-skill/
+.playwright/

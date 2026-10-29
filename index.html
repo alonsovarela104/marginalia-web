@@ -3,45 +3,572 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Marginalia</title>
+<title>Marginalia · Diario de lectura</title>
+<meta name="description" content="Marginalia, tu diario de lectura: registra lo que lees, lo que sentiste y lo que quieres leer después. Gratis, sin anuncios y en español.">
+<link rel="canonical" href="https://marginalia.catonmars.com/">
+<link rel="alternate" hreflang="es" href="https://marginalia.catonmars.com/">
+<link rel="alternate" hreflang="en" href="https://marginalia.catonmars.com/en.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Marginalia · Diario de lectura">
+<meta property="og:description" content="Registra lo que lees, lo que sentiste y lo que quieres leer después.">
+<meta property="og:image" content="https://marginalia.catonmars.com/assets/icono-512.png">
+<meta name="theme-color" content="#0c1016">
+<link rel="icon" type="image/svg+xml" href="assets/cuervo.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Spectral:wght@400;500;600&display=swap">
+<script>document.documentElement.classList.add('js'); document.documentElement.dataset.paleta = 'tinta';</script>
 <style>
-  :root { color-scheme: dark; }
-  body { margin: 0; background: #0D0D0D; color: #F2EDE4;
-    font-family: Spectral, Georgia, serif; font-size: 17px; line-height: 1.65; }
-  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
-  h1, h2, .brand { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; }
-  h1 { font-size: 40px; line-height: 1.15; margin: 8px 0 24px; }
-  h2 { font-size: 26px; margin: 40px 0 8px; }
-  .brand { font-size: 22px; margin: 0; }
-  a { color: #C9687F; }
-  .brand a { color: #F2EDE4; text-decoration: none; }
-  ul { padding-left: 22px; }
-  li { margin-bottom: 8px; }
-  li::marker { color: #A8405A; }
-  p { color: #D9D2C6; }
-  .button { display: inline-block; padding: 14px 28px; border-radius: 12px;
-    background: #A8405A; color: #FBF7F0; text-decoration: none; font-weight: 500; }
-  .button.secondary { background: transparent; border: 1px solid #A8405A; color: #F2EDE4; }
+  /* Escenario oscuro con la aurora de la app; los celulares son el protagonista y giran entre sí con el scroll. */
+  :root {
+    color-scheme: dark;
+    --fondo: #140d12;
+    --superficie: #1f171c;
+    --texto: #f1f0ee;
+    --texto-2: #b7b3b0;
+    --vino: #c2456a;
+    --vino-hondo: #8f2f4c;
+    --vidrio: rgba(255, 255, 255, .05);
+    --vidrio-borde: rgba(255, 255, 255, .09);
+    --tono-1: #4a1830;
+    --tono-2: #34183f;
+    --tono-3: #17332a;
+    --letra: "Spectral", Georgia, serif;
+    --titulos: "Cormorant Garamond", Georgia, serif;
+    --margen: clamp(16px, 4vw, 56px);
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --t-1: clamp(48px, 7vw, 104px);
+    --t-2: clamp(36px, 4.6vw, 66px);
+    --t-3: clamp(24px, 2.3vw, 31px);
+    --t-4: 18px;
+    --t-5: 15px;
+  }
+  body[data-tono="morado"] { --tono-1: #2c1846; --tono-2: #4a1838; }
+  body[data-tono="verde"] { --tono-1: #17332a; --tono-2: #34183f; --tono-3: #4a1830; }
+  /* Paletas alternativas; "tinta" es la elegida */
+  html[data-paleta="tinta"] { --fondo: #0c1016; --superficie: #161c25; --vino: #e0577c; --vino-hondo: #9c3354; --tono-1: #13294a; --tono-2: #3a1838; --tono-3: #0f3640; }
+  html[data-paleta="tinta"] body[data-tono="morado"] { --tono-1: #241d52; --tono-2: #13294a; }
+  html[data-paleta="tinta"] body[data-tono="verde"] { --tono-1: #0f3640; --tono-2: #241d52; }
+  html[data-paleta="bosque"] { --fondo: #0c1310; --superficie: #16201b; --vino: #e2a04b; --vino-hondo: #8a5a1e; --tono-1: #163a2a; --tono-2: #3d2a14; --tono-3: #2a1626; }
+  html[data-paleta="bosque"] body[data-tono="morado"] { --tono-1: #1d3a3a; --tono-2: #3d2a14; }
+  html[data-paleta="bosque"] body[data-tono="verde"] { --tono-1: #22401f; --tono-2: #163a2a; }
+  html[data-paleta="grafito"] { --fondo: #101011; --superficie: #1b1b1d; --vino: #ff6b4a; --vino-hondo: #a8401f; --tono-1: #2b2b30; --tono-2: #3a2018; --tono-3: #1e2a33; }
+  html[data-paleta="grafito"] body[data-tono="morado"] { --tono-1: #1e2a33; --tono-2: #2b2b30; }
+  html[data-paleta="grafito"] body[data-tono="verde"] { --tono-1: #3a2018; --tono-2: #1e2a33; }
+
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--fondo); overflow-x: clip; }
+  body { background: var(--fondo); color: var(--texto); font: 400 var(--t-4)/1.6 var(--letra); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--vino); color: #fff; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-radius: 6px; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3 { font-family: var(--titulos); font-weight: 600; letter-spacing: -.01em; line-height: 1.04; text-wrap: balance; }
+  .envoltura { padding-inline: var(--margen); }
+
+  .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--fondo); }
+  .aurora span { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .55; transition: background-color 1.6s ease; }
+  .aurora .a1 { width: 70vmax; height: 55vmax; left: -24vmax; top: -20vmax; background: var(--tono-1); animation: deriva-1 40s ease-in-out infinite alternate; }
+  .aurora .a2 { width: 60vmax; height: 50vmax; right: -24vmax; top: 15vh; background: var(--tono-2); animation: deriva-2 48s ease-in-out infinite alternate; }
+  .aurora .a3 { width: 45vmax; height: 35vmax; left: -10vmax; bottom: -24vmax; background: var(--tono-3); opacity: .35; animation: deriva-1 54s ease-in-out infinite alternate-reverse; }
+  @keyframes deriva-1 { to { transform: translate3d(8vmax, 6vmax, 0) scale(1.08); } }
+  @keyframes deriva-2 { to { transform: translate3d(-10vmax, 8vmax, 0) scale(.94); } }
+
+  main, footer { position: relative; z-index: 1; }
+  .vidrio { background: var(--vidrio); border: 1px solid var(--vidrio-borde);
+            backdrop-filter: blur(20px) saturate(1.2); -webkit-backdrop-filter: blur(20px) saturate(1.2); }
+
+  .barra { position: fixed; inset: 0 0 auto; z-index: 30; display: flex; align-items: center; gap: 28px; padding: 18px var(--margen); }
+  .barra .logo { display: flex; align-items: center; gap: 10px; font: 600 28px/1 var(--titulos); text-decoration: none; margin-right: auto; }
+  .barra .logo svg { width: 30px; height: auto; fill: var(--vino); transition: fill .4s ease; }
+  .barra nav { display: flex; gap: 22px; font-size: 15px; color: var(--texto-2); }
+  .barra nav a { text-decoration: none; transition: color .2s ease; }
+  .barra nav a:hover { color: var(--texto); }
+  .barra .idioma { font-size: 15px; color: var(--texto-2); }
+  .barra .idioma b { color: var(--texto); font-weight: 600; }
+  @media (max-width: 760px) { .barra nav { display: none; } }
+
+  .boton { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 22px; border-radius: 14px;
+           text-decoration: none; min-width: 170px; transition: transform .16s var(--ease-out), background-color .2s ease; }
+  .boton:active { transform: scale(.97); }
+  .boton small { font-size: 13px; opacity: .75; }
+  .boton strong { font-weight: 600; font-size: 17px; line-height: 1.2; }
+  .boton.principal { background: var(--vino); color: #fff; }
+  @media (hover: hover) { .boton.principal:hover { background: #d1557a; } .boton.vidrio:hover { background: rgba(255,255,255,.09); } }
+
+  /* 1. Escenario: los celulares nacen al centro, se van a su lugar, giran solos y flotan */
+  .escenario { position: relative; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+               align-items: center; padding: 96px var(--margen) 48px; gap: 24px; }
+  .textos { max-width: 540px; position: relative; z-index: 4; }
+  .textos h1 { font-size: var(--t-1); }
+  .textos > p { color: var(--texto-2); margin-top: 20px; max-width: 40ch; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+
+  .celulares { position: relative; height: min(78svh, 760px); min-height: 540px; }
+  .anillo-cel { position: absolute; inset: 0 0 92px; }
+  .cel { cursor: pointer; }
+  .cel { position: absolute; left: 50%; top: 50%; width: clamp(200px, 20vw, 290px); aspect-ratio: 9 / 20; transform: translate(-50%, -50%); }
+  .marco { width: 100%; height: 100%; border-radius: 42px; padding: 8px; background: #1a171b;
+           box-shadow: 0 50px 100px -40px rgba(0, 0, 0, .9), inset 0 0 0 1px rgba(255,255,255,.08); animation: flotar 6s ease-in-out infinite; }
+  .cel:nth-child(2) .marco { animation-delay: -1.5s; } .cel:nth-child(3) .marco { animation-delay: -3s; }
+  .cel:nth-child(4) .marco { animation-delay: -4.5s; } .cel:nth-child(5) .marco { animation-delay: -2.2s; } .cel:nth-child(6) .marco { animation-delay: -3.7s; }
+  @keyframes flotar { 0%, 100% { transform: translateY(-7px) rotate(-.4deg); } 50% { transform: translateY(7px) rotate(.4deg); } }
+  .marco img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 34px; }
+  /* Sin animación: tres celulares en abanico, fijos */
+  .cel:nth-child(2) { transform: translate(-128%, -44%) rotate(-8deg) scale(.8); }
+  .cel:nth-child(3), .cel:nth-child(4), .cel:nth-child(5) { display: none; }
+  .cel:nth-child(6) { transform: translate(28%, -44%) rotate(8deg) scale(.8); }
+  .cel:nth-child(1) { z-index: 3; }
+  .js-vivo .cel { transform: none; display: block; }
+
+  .leyenda { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; z-index: 4; }
+  .leyenda strong { display: block; font: 600 24px/1.2 var(--titulos); }
+  .leyenda span { display: block; color: var(--texto-2); font-size: 15px; margin-top: 2px; }
+  .puntos { display: flex; justify-content: center; gap: 4px; margin-top: 10px; }
+  .puntos button { width: 24px; height: 24px; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+  .puntos button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.22); transition: background-color .3s ease, transform .3s var(--ease-out); }
+  .puntos button[aria-current=true]::before { background: var(--vino); transform: scale(1.35); }
+
+  @media (max-width: 860px) {
+    .escenario { grid-template-columns: 1fr; padding-top: 88px; gap: 28px; align-items: start; }
+    .textos h1 { font-size: clamp(40px, 11vw, 56px); }
+    .textos > p { margin-top: 12px; font-size: 16px; }
+    .acciones { margin-top: 18px; }
+    .celulares { height: 560px; min-height: 0; }
+    .anillo-cel { bottom: 96px; }
+    .cel { width: min(210px, 50vw); }
+    .marco { border-radius: 32px; padding: 6px; } .marco img { border-radius: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .marco { animation: none; } }
+
+  /* 2. Lo vivo: escribe tu reseña */
+  section.bloque { padding-block: clamp(90px, 12vw, 170px) 0; }
+  .bloque h2 { font-size: var(--t-2); }
+  .bloque .intro { color: var(--texto-2); margin-top: 18px; max-width: 44ch; }
+  .resena-rejilla { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .tarjeta { position: sticky; top: 96px; border-radius: 28px; overflow: hidden; }
+  .tarjeta-fondo { position: absolute; inset: 0; background: center 30% / cover; filter: blur(40px) saturate(1.2) brightness(.45); transform: scale(1.3); }
+  .tarjeta-cuerpo { position: relative; padding: clamp(22px, 3vw, 36px); display: grid; grid-template-columns: clamp(110px, 12vw, 150px) minmax(0, 1fr); gap: 24px; }
+  .portada { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; object-position: top; border-radius: 8px; background: #f4efe4;
+             box-shadow: 0 24px 40px -18px rgba(0,0,0,.8); transform: rotate(-2deg); }
+  .libro-datos h3 { font-size: clamp(24px, 2.4vw, 32px); letter-spacing: 0; }
+  .libro-datos .autor { font-size: var(--t-5); color: var(--texto-2); margin-top: 6px; }
+  .libro-datos .detalles { font-size: 14px; color: var(--texto-2); margin-top: 2px; }
+  .estrellas { display: flex; gap: 4px; margin-top: 16px; }
+  .estrellas svg { width: 26px; height: 26px; }
+  .estrellas .fondo { fill: rgba(255,255,255,.14); } .estrellas .relleno { fill: var(--vino); }
+  .valor-num { font-size: 15px; color: var(--texto-2); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chip { font-size: 14px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.1); }
+  .chip.acento { background: var(--vino-hondo); }
+  .nota { grid-column: 1 / -1; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); }
+  .nota .escrita { font-size: 22px; line-height: 1.3; font-weight: 500; min-height: 1.3em; overflow-wrap: anywhere; }
+  .cursor { display: inline-block; width: 2px; height: 1em; background: var(--vino); vertical-align: -3px; margin-left: 2px; animation: parpadeo 1s steps(1) infinite; }
+  @keyframes parpadeo { 50% { opacity: 0; } }
+  .spoiler { margin-top: 12px; font-size: 14px; color: var(--texto-2); display: none; }
+  .spoiler.si { display: block; }
+  .nota-pie { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; font-size: 14px; color: var(--texto-2); }
+  .controles { display: grid; gap: 26px; margin-top: 34px; }
+  .controles label, .controles legend { display: block; font-size: var(--t-5); color: var(--texto-2); margin-bottom: 10px; padding: 0; }
+  .controles fieldset { border: 0; padding: 0; }
+  .controles textarea { font-family: var(--letra); width: 100%; min-height: 92px; resize: vertical; background: var(--superficie); color: var(--texto); border: 0; border-radius: 14px;
+                        padding: 14px 16px; font: 500 20px/1.35 var(--letra); }
+  .controles input[type=range] { width: 100%; accent-color: var(--vino); height: 44px; }
+  .opciones { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opciones button { font: 500 16px/1 var(--letra); color: var(--texto); background: var(--superficie); border: 0; border-radius: 999px; padding: 12px 18px;
+                     min-height: 44px; cursor: pointer; transition: background-color .2s ease, transform .16s var(--ease-out); }
+  .opciones button:active { transform: scale(.97); }
+  .opciones button[aria-pressed=true] { background: var(--vino); }
+  .interruptor { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 16px; }
+  .interruptor input { appearance: none; width: 46px; height: 28px; flex: none; border-radius: 99px; background: rgba(255,255,255,.18); position: relative; cursor: pointer; transition: background-color .2s ease; margin: 0; }
+  .interruptor input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform .2s var(--ease-out); }
+  .interruptor input:checked { background: var(--vino); }
+  .interruptor input:checked::after { transform: translateX(18px); }
+  @media (max-width: 860px) { .resena-rejilla { grid-template-columns: 1fr; } .tarjeta { position: relative; top: 0; } }
+  @media (max-width: 480px) { .tarjeta-cuerpo { grid-template-columns: 96px minmax(0, 1fr); gap: 16px; } }
+
+  /* 3. Leer es conversar: pares antes y ahora */
+  .historia > h2 { max-width: 16ch; }
+  .pares { display: grid; gap: clamp(64px, 9vw, 130px); margin-top: clamp(56px, 7vw, 96px); }
+  .par { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: center; }
+  .par:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .par:nth-child(even) .obra { order: 2; }
+  .obra { overflow: hidden; border-radius: 18px; }
+  .obra img { width: auto; max-width: 100%; height: auto; max-height: 72vh; border-radius: 18px; }
+  .obra { border-radius: 0; overflow: visible; }
+  .obra figcaption { font-size: var(--t-5); color: var(--texto-2); padding-top: 10px; }
+  .par .hoy { display: inline-block; font-size: 14px; font-weight: 600; color: var(--vino); background: rgba(255,255,255,.06); padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
+  .par h3 { font-size: var(--t-3); line-height: 1.15; margin-bottom: 12px; letter-spacing: -.02em; }
+  .par p { color: var(--texto-2); max-width: 42ch; }
+  @media (max-width: 760px) { .par, .par:nth-child(even) { grid-template-columns: 1fr; } .par:nth-child(even) .obra { order: 0; } }
+
+  /* 4. Tu año: reto, racha y calendario */
+  .anio-rejilla { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
+  .panel { border-radius: 24px; padding: 26px; }
+  .panel-titulo { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .panel-titulo strong { font-weight: 600; font-size: 17px; }
+  .panel-titulo span { font-size: 14px; color: var(--texto-2); }
+  .p-reto { grid-column: span 7; }
+  .p-racha { grid-column: span 5; }
+  .p-cal { grid-column: span 12; }
+  .reto-principal { display: flex; align-items: center; gap: 22px; margin-bottom: 18px; }
+  .anillo { width: 112px; height: 112px; flex: none; }
+  .anillo circle { fill: none; stroke-width: 8; }
+  .anillo .base { stroke: rgba(255,255,255,.08); }
+  .anillo .valor { stroke: var(--vino); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+  .anillo text { fill: var(--texto); font: 600 22px var(--titulos); }
+  .reto-principal b { display: block; font: 600 34px/1.1 var(--titulos); }
+  .reto-principal span { font-size: 15px; color: var(--texto-2); }
+  .barra-dato { display: flex; justify-content: space-between; font-size: 15px; color: var(--texto-2); margin-top: 14px; font-variant-numeric: tabular-nums; }
+  .pista { height: 6px; border-radius: 9px; background: rgba(255,255,255,.08); margin-top: 6px; overflow: hidden; }
+  .pista i { display: block; height: 100%; background: var(--vino); border-radius: inherit; transform-origin: left; }
+  .racha-num { font-family: var(--titulos); font-size: 72px; font-weight: 600; letter-spacing: -.01em; line-height: 1; font-variant-numeric: lining-nums proportional-nums; }
+  .racha-num small { font-size: 18px; font-weight: 500; color: var(--texto-2); letter-spacing: 0; margin-left: 6px; }
+  .semana { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 22px; text-align: center; font-size: 13px; color: var(--texto-2); }
+  .semana i { display: block; aspect-ratio: 1; border-radius: 10px; background: rgba(255,255,255,.07); margin-top: 6px; }
+  .semana i.si { background: var(--vino); }
+  .semana i.hoy { background: none; border: 2px dashed var(--vino); }
+  .racha-pie { margin-top: 18px; font-size: 15px; color: var(--texto-2); }
+  .cal { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 10px; align-items: end; height: 150px; }
+  .mes { display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; font-size: 13px; color: var(--texto-2); }
+  .mes i { width: 100%; max-width: 42px; border-radius: 8px 8px 4px 4px; background: rgba(255,255,255,.1); transform-origin: bottom; }
+  .mes i.lleno { background: var(--vino); }
+  .mes b { font-weight: 600; color: var(--texto); font-variant-numeric: tabular-nums; }
+  @media (max-width: 860px) { .p-reto, .p-racha, .p-cal { grid-column: span 12; } .cal { gap: 5px; } .mes { font-size: 11px; } }
+
+  /* 5. Preguntas */
+  .preguntas { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 5vw, 80px); }
+  .preguntas h2 { position: sticky; top: 100px; align-self: start; }
+  .preguntas .intro a { color: var(--texto); }
+  .grupo-p { font-size: 14px; font-weight: 600; color: var(--texto-2); margin: 26px 0 10px; }
+  .grupo-p:first-child { margin-top: 0; }
+  .losetas { display: grid; gap: 8px; }
+  .losetas details { background: var(--superficie); border-radius: 16px; transition: background-color .25s ease; }
+  .losetas details[open] { background: rgba(255,255,255,.08); }
+  .losetas summary { list-style: none; cursor: pointer; min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+                     padding: 16px 22px; font-weight: 500; font-size: 18px; }
+  .losetas summary::-webkit-details-marker { display: none; }
+  .mas { position: relative; width: 16px; height: 16px; flex: none; }
+  .mas::before, .mas::after { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .25s var(--ease-out); }
+  .mas::after { transform: rotate(90deg); }
+  details[open] .mas::after { transform: rotate(0); }
+  .respuesta { padding: 0 22px 22px; color: var(--texto-2); max-width: 60ch; }
+  @media (max-width: 760px) { .preguntas { grid-template-columns: 1fr; } .preguntas h2 { position: static; } }
+
+  .cierre { text-align: center; padding-block: clamp(110px, 15vw, 200px) 0; }
+  .cierre h2 { font-size: var(--t-1); max-width: 13ch; margin-inline: auto; }
+  .cierre p { color: var(--texto-2); margin: 18px auto 0; max-width: 40ch; }
+  .cierre .acciones { justify-content: center; }
+  footer { margin-top: 120px; padding-block: 32px 44px; border-top: 1px solid var(--vidrio-borde); display: grid; gap: 14px; font-size: var(--t-5); color: var(--texto-2); }
+  footer .fila { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+  footer a { text-decoration: none; } footer a:hover { color: var(--texto); }
+  footer .creditos { font-size: 13px; max-width: 90ch; }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
-<body>
+<body data-tono="vino">
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+
+<header class="barra">
+  <a class="logo" href="./" aria-label="Marginalia, inicio"><svg viewBox="0 0 1221 1163" aria-hidden="true"><path d="M559 264C573.949 264 588.308 267.101 603 269.565C614.969 271.572 627.012 272.798 639 274.573C652.018 276.499 667.075 275.627 679 281.912C696.07 290.909 710.016 310.241 704.711 330C702.156 339.516 696.763 350.358 688.985 356.61C680.497 363.433 668.711 366.559 659 371.258C640.425 380.246 622.405 389.952 605 401.054C582.93 415.132 562.895 432.886 545.089 452C531.223 466.886 519.019 483.298 504.961 498C483.585 520.355 458.074 537.94 434 557.2C404.983 580.415 374.321 604.204 350.615 633C343.23 641.97 329.106 659.347 344.015 668.12C345.899 669.228 347.9 670.098 350 670.699C352.951 671.543 355.949 671.869 359 672C344.576 684.293 327.602 694.271 312 705.025C282.173 725.585 252.295 746.565 224 769.2C213.211 777.831 201.851 786.206 193.095 797C190.288 800.461 185.453 805.945 186.412 810.852C187.262 815.198 193.887 814.086 197 813.536C208.232 811.552 219.209 807.601 230 804C275.955 788.667 321.71 772.4 367 755.192C430.102 731.216 493.243 707.165 555 679.86C596.188 661.65 637.479 643.136 675 617.999C721.471 586.866 765.913 539.376 769.911 481C770.926 466.169 765.738 454.062 763 440C805.368 482.726 778.991 548.454 746.385 588C740.206 595.494 732.903 602.175 726 608.996C717.75 617.148 708.541 624.746 699 631.34C623.782 683.328 536.137 716.462 451 748.575C424.501 758.57 397.681 767.812 371 777.308C359.687 781.334 346.443 783.348 336 789.363C322.223 797.297 310.193 810.265 298 820.414C272.494 841.642 247.195 863.134 222 884.729C215.58 890.232 208.763 895.616 203.185 902C201.11 904.375 198.302 907.586 198.658 910.996C199.158 915.781 205.196 919.068 209 921.019C220.207 926.765 234.699 927.167 247 925.714C256.673 924.573 266.307 921.769 276 921.089C289.78 920.124 303.369 921.549 317 918.324C339.752 912.942 360.828 900.679 380 887.656C401.303 873.185 421.879 857.094 441 839.83C453.01 828.987 464.326 816.489 478 807.698C488.724 800.804 501.121 796.056 513 791.576C521.415 788.403 530.904 783.834 540 783.383C548.026 782.985 558.146 786.624 566 788.406C570.149 789.347 576.04 787.749 579.682 790.179C584.19 793.187 581.663 804.182 582.924 809C585.871 820.255 592.773 829.211 600.081 838C611.372 851.579 622.57 865.205 633.6 879C636.837 883.048 644.965 890.338 644.258 895.995C643.147 904.888 630.12 902.998 624 903C609.389 903.006 591.796 908.831 591 926L857 926C856.485 914.754 846.869 905.704 836 903.39C820.857 900.165 804.313 905.026 789 902.56C773.629 900.085 764.689 887.028 756.667 875C749.482 864.228 742.135 853.611 734.72 843C730.267 836.628 720.205 826.279 721.862 818.039C723.611 809.337 728.871 801.687 732.819 793.961C736.822 786.125 740.191 776.413 747.104 770.529C751.677 766.638 757.661 764.622 763 762.056C771.517 757.961 779.98 753.311 788 748.316C811.197 733.867 833.232 717.052 851.911 697C868.238 679.473 880.941 659.722 895.669 641C902.172 632.733 909.782 625.427 916.105 617C935.81 590.74 953.25 560.561 962.769 529C966.58 516.366 970.377 504.324 970.961 491C971.579 476.888 971.978 458.583 964.517 446C961.865 441.527 957.958 437.651 954 434.325C951.067 431.86 947.342 429.963 946.318 425.985C945.289 421.989 946 417.102 946 413C946 406.65 945.442 400.316 944.83 394C942.287 367.736 937.01 341.053 928.914 316C909.462 255.811 870.552 190.727 803 178.465C790.677 176.228 776.47 175.963 764 177.17C749.236 178.599 733.022 183.202 720 190.312C711.204 195.116 704.306 203.335 694 204.711C658.341 209.47 619.707 209.954 588 229.204C575.954 236.518 560.546 248.902 559 264z"/></svg>Marginalia</a>
+  <nav aria-label="Secciones"><a href="#resena">Pruébalo</a><a href="#historia">Leer es conversar</a><a href="#anio">Tu año</a><a href="#preguntas">Preguntas</a></nav>
+  <span class="idioma"><b>ES</b> · <a href="en.html" lang="en" hreflang="en">EN</a></span>
+</header>
+
 <main>
-<h1>Marginalia</h1>
-<p>Tus libros. Tu historia.</p>
-<h2>Español</h2>
-<ul>
-<li><a href="privacidad.html">Aviso de privacidad</a></li>
-<li><a href="terminos.html">Términos y condiciones</a></li>
-<li><a href="eliminar-cuenta.html">Eliminar tu cuenta</a></li>
-</ul>
-<h2>English</h2>
-<ul>
-<li><a href="privacy.html">Privacy notice</a></li>
-<li><a href="terms.html">Terms and conditions</a></li>
-<li><a href="delete-account.html">Delete your account</a></li>
-</ul>
+  <section class="escenario" id="escenario" data-tono="vino">
+    <div class="textos">
+      <h1>Tu vida de lector, en una app.</h1>
+      <p>Registra lo que lees, lo que sentiste y lo que quieres leer después. Gratis, sin anuncios y en español.</p>
+      <div class="acciones">
+        <a class="boton principal" href="#cierre" aria-disabled="true"><small>Próximamente en</small><strong>Google Play</strong></a>
+        <a class="boton vidrio" href="#cierre" aria-disabled="true"><small>Pronto en</small><strong>App Store</strong></a>
+      </div>
+    </div>
+    <div class="celulares">
+      <div class="anillo-cel">
+        <div class="cel" data-titulo="Tu inicio" data-texto="Lo que estás leyendo y lo que se lee esta semana."><div class="marco"><img src="assets/img/q_inicio.jpg" alt=""></div></div>
+        <div class="cel" data-titulo="Elige tus colores" data-texto="Modo claro u oscuro y diez paletas para toda la app."><div class="marco"><img src="assets/img/q_colores.jpg" alt=""></div></div>
+        <div class="cel" data-titulo="Tu diario de lectura" data-texto="Cada libro que terminas, con su fecha y tu valoración."><div class="marco"><img src="assets/img/q_diario.jpg" alt=""></div></div>
+        <div class="cel" data-titulo="Tu estantería" data-texto="Leídos, leyendo, quiero leer y abandonados."><div class="marco"><img src="assets/img/q_estanteria.jpg" alt=""></div></div>
+        <div class="cel" data-titulo="Tu año en libros" data-texto="Tu resumen del año, listo para compartir."><div class="marco"><img src="assets/img/q_anio.jpg" alt=""></div></div>
+        <div class="cel" data-titulo="Comparte tu calificación" data-texto="Tu opinión de un libro, como imagen para historias."><div class="marco"><img src="assets/img/q_compartir.jpg" alt=""></div></div>
+      </div>
+      <div class="leyenda" aria-live="polite">
+        <strong id="leyenda-titulo">Tu inicio</strong><span id="leyenda-texto">Lo que estás leyendo y lo que se lee esta semana.</span>
+        <div class="puntos" role="group" aria-label="Pantallas de la app"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque envoltura" id="resena" data-tono="morado">
+    <div class="resena-rejilla">
+      <article class="tarjeta vidrio" aria-live="polite">
+        <div class="tarjeta-fondo" style="background-image:url(assets/img/dore.jpg)"></div>
+        <div class="tarjeta-cuerpo">
+          <img class="portada" src="assets/img/quijote.jpg" alt="Portada de la primera edición de Don Quijote, 1605">
+          <div class="libro-datos">
+            <h3>Don Quijote de la Mancha</h3>
+            <p class="autor">Miguel de Cervantes</p>
+            <p class="detalles">1605 · Juan de la Cuesta · 1.250 páginas</p>
+            <div class="estrellas" id="estrellas" aria-hidden="true"></div>
+            <p class="valor-num" id="valor-num">4,5 de 5</p>
+            <div class="chips"><span class="chip acento" id="chip-animo">Divertido</span><span class="chip" id="chip-ritmo">Ritmo lento</span></div>
+          </div>
+          <div class="nota">
+            <p class="escrita"><span id="escrita">Lo leí en el colegio por obligación y ahora lo releo por gusto.</span><span class="cursor" aria-hidden="true"></span></p>
+            <p class="spoiler" id="aviso-spoiler">Contiene spoilers: los demás lectores la verán oculta hasta que toquen.</p>
+            <div class="nota-pie"><span>Tu reseña · hoy</span><span>Compartir como imagen</span></div>
+          </div>
+        </div>
+      </article>
+      <div>
+        <h2>Así se siente reseñar</h2>
+        <p class="intro">Valora con medias estrellas, escribe lo que te dejó y elige el ánimo y el ritmo. La tarjeta cambia contigo, igual que en la app.</p>
+        <form class="controles" id="controles">
+          <div><label for="campo-nota">Tu reseña</label><textarea id="campo-nota" maxlength="120">Lo leí en el colegio por obligación y ahora lo releo por gusto.</textarea></div>
+          <div><label for="campo-valor">Tu valoración, con medias estrellas</label><input id="campo-valor" type="range" min="1" max="10" value="9"></div>
+          <fieldset><legend>Ánimo</legend><div class="opciones" data-grupo="animo"><button type="button" aria-pressed="false">Melancólico</button><button type="button" aria-pressed="true">Divertido</button><button type="button" aria-pressed="false">Tenso</button><button type="button" aria-pressed="false">Esperanzador</button></div></fieldset>
+          <fieldset><legend>Ritmo</legend><div class="opciones" data-grupo="ritmo"><button type="button" aria-pressed="true">Lento</button><button type="button" aria-pressed="false">Medio</button><button type="button" aria-pressed="false">Rápido</button></div></fieldset>
+          <label class="interruptor" for="campo-spoiler"><input type="checkbox" id="campo-spoiler"> Mi reseña tiene spoilers</label>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque envoltura historia" id="historia" data-tono="morado">
+    <h2>Leer siempre fue una conversación</h2>
+    <p class="intro">Desde hace siglos los lectores escriben al margen, comentan y se recomiendan libros. Marginalia, que significa "notas al margen", hace lo mismo en tu bolsillo.</p>
+    <div class="pares">
+      <article class="par">
+        <figure class="obra"><img src="assets/img/montaigne.jpg" alt="Página de los Ensayos de Montaigne, con sus correcciones y notas escritas a mano en los márgenes" loading="lazy"><figcaption>Montaigne anota sus propios Ensayos, 1588.</figcaption></figure>
+        <div><span class="hoy">Hoy: reseñas con matices</span><h3>Montaigne discutía con su propio libro en los márgenes.</h3><p>En Marginalia dices lo tuyo de cada libro: medias estrellas, una reseña y el ánimo y el ritmo con que lo leíste.</p></div>
+      </article>
+      <article class="par">
+        <figure class="obra"><img src="assets/img/fantin.jpg" alt="Pintura de Fantin-Latour: una mujer lee en voz alta a otra que la escucha" loading="lazy"><figcaption>Henri Fantin-Latour, La lectura, 1877.</figcaption></figure>
+        <div><span class="hoy">Hoy: comparte lo que lees</span><h3>Un buen libro siempre se quiere contar.</h3><p>Comparte tus calificaciones, reseñas y citas favoritas como imágenes listas para historias. Y si quieren leer juntos, arma un club.</p></div>
+      </article>
+      <article class="par">
+        <figure class="obra"><img src="assets/img/vermeer.jpg" alt="Pintura de Vermeer: una mujer escribe en su escritorio y mira al espectador" loading="lazy"><figcaption>Johannes Vermeer, Mujer escribiendo, hacia 1665.</figcaption></figure>
+        <div><span class="hoy">Hoy: tus citas y tu diario</span><h3>Hay frases que vale la pena copiar.</h3><p>Guárdalas en tus citas y lleva un diario con cada libro que terminas, su fecha y lo que sentiste.</p></div>
+      </article>
+      <article class="par">
+        <figure class="obra"><img src="assets/img/crespi.jpg" alt="Pintura de Crespi: estantes llenos de libros antiguos, apilados y desordenados" loading="lazy"><figcaption>Giuseppe Maria Crespi, Estantes con libros, hacia 1725.</figcaption></figure>
+        <div><span class="hoy">Hoy: tu estantería, a tu manera</span><h3>Cada lector ordena sus libros a su modo.</h3><p>Leídos, leyendo y pendientes, con etiquetas que solo tú ves y diez paletas de color para la app.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="bloque envoltura" id="anio" data-tono="verde">
+    <h2>Tu año en libros</h2>
+    <p class="intro">Ponte una meta, mantén tu racha y mira cómo avanzas mes a mes. Al final del año, tu resumen queda listo para compartir.</p>
+    <div class="anio-rejilla">
+      <div class="panel vidrio p-reto" id="reto">
+        <div class="panel-titulo"><strong>Reto de lectura 2026</strong><span>Ejemplo</span></div>
+        <div class="reto-principal">
+          <svg class="anillo" viewBox="0 0 100 100" aria-hidden="true"><circle class="base" cx="50" cy="50" r="42"></circle><circle class="valor" cx="50" cy="50" r="42" pathLength="100" stroke-dasharray="100" stroke-dashoffset="25"></circle><text x="50" y="57" text-anchor="middle">75 %</text></svg>
+          <div><b>18 de 24 libros</b><span>Vas 2 libros por delante del plan</span></div>
+        </div>
+        <div class="barra-dato"><span>Páginas</span><span>5 430 de 7 000</span></div><div class="pista"><i style="transform:scaleX(.776)"></i></div>
+        <div class="barra-dato"><span>Autores nuevos</span><span>7 de 10</span></div><div class="pista"><i style="transform:scaleX(.7)"></i></div>
+        <div class="barra-dato"><span>Géneros distintos</span><span>5 de 6</span></div><div class="pista"><i style="transform:scaleX(.833)"></i></div>
+      </div>
+      <div class="panel vidrio p-racha">
+        <div class="panel-titulo"><strong>Racha de lectura</strong><span>Mejor: 31 días</span></div>
+        <p class="racha-num"><span id="racha">12</span><small>días seguidos</small></p>
+        <div class="semana" aria-label="Días leídos esta semana: lunes a sábado leídos, domingo pendiente">
+          <span>L<i class="si"></i></span><span>M<i class="si"></i></span><span>M<i class="si"></i></span><span>J<i class="si"></i></span><span>V<i class="si"></i></span><span>S<i class="si"></i></span><span>D<i class="hoy"></i></span>
+        </div>
+        <p class="racha-pie">Lee hoy unas páginas para no perderla.</p>
+      </div>
+      <div class="panel vidrio p-cal">
+        <div class="panel-titulo"><strong>Libros por mes</strong><span>Octubre va en curso</span></div>
+        <div class="cal" id="cal"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque envoltura preguntas" id="preguntas" data-tono="vino">
+    <div>
+      <h2>Preguntas frecuentes</h2>
+      <p class="intro">¿Algo más? Escríbenos a soporte@catonmars.com.</p>
+    </div>
+    <div>
+      <p class="grupo-p">Sobre la app</p>
+      <div class="losetas">
+        <details name="faq"><summary>¿Marginalia es gratis?<span class="mas"></span></summary><p class="respuesta">Sí. Registrar libros, reseñar, el reto anual, la racha, las estadísticas, los clubs y las paletas de color son gratis y sin anuncios.</p></details>
+        <details name="faq"><summary>¿Cuándo sale y en qué celulares?<span class="mas"></span></summary><p class="respuesta">Primero en Android, en Google Play. La versión para iPhone llegará después; esta página avisará el día del lanzamiento.</p></details>
+        <details name="faq"><summary>¿Está en inglés?<span class="mas"></span></summary><p class="respuesta">Sí, completa en español y en inglés. Cambias de idioma cuando quieras desde Ajustes.</p></details>
+        <details name="faq"><summary>¿Usa inteligencia artificial?<span class="mas"></span></summary><p class="respuesta">No. Lo que ves son tus libros y las opiniones de otros lectores. Nadie opina por ti.</p></details>
+      </div>
+      <p class="grupo-p">Tus libros</p>
+      <div class="losetas">
+        <details name="faq"><summary>¿Cómo agrego un libro?<span class="mas"></span></summary><p class="respuesta">Búscalo por título, autor o ISBN, o escanea el código de barras con la cámara. Lo marcas como leyendo, quiero leer, leído o abandonado.</p></details>
+        <details name="faq"><summary>¿Puedo traer mis libros de Goodreads?<span class="mas"></span></summary><p class="respuesta">Sí. Exporta tu biblioteca desde Goodreads y súbela en Ajustes. Llegan tus libros, estados y valoraciones, sin duplicados.</p></details>
+        <details name="faq"><summary>¿Por qué un libro aparece una sola vez si tiene muchas ediciones?<span class="mas"></span></summary><p class="respuesta">Marginalia agrupa las traducciones y reimpresiones de una misma obra, así no ves el mismo libro diez veces. Dentro de la ficha eliges tu edición y su portada.</p></details>
+        <details name="faq"><summary>¿Cómo funciona el reto anual?<span class="mas"></span></summary><p class="respuesta">Eliges cuántos libros, páginas, autores nuevos o géneros quieres leer en el año. La app te dice si vas al día y a qué ritmo terminarías.</p></details>
+      </div>
+      <p class="grupo-p">Lectores y privacidad</p>
+      <div class="losetas">
+        <details name="faq"><summary>¿Cómo funcionan los clubs sin spoilers?<span class="mas"></span></summary><p class="respuesta">El club divide el libro en tramos. Solo ves los comentarios de los tramos que ya leíste.</p></details>
+        <details name="faq"><summary>¿Quién ve mi perfil y mis reseñas?<span class="mas"></span></summary><p class="respuesta">Tu perfil puede ser público o privado. Si es privado, solo los seguidores que apruebes ven tu estantería. También puedes bloquear y reportar.</p></details>
+        <details name="faq"><summary>¿Puedo borrar mi cuenta?<span class="mas"></span></summary><p class="respuesta">Sí, desde Ajustes o desde la web, cuando quieras. Al borrarla se eliminan todos tus datos.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cierre envoltura" id="cierre" data-tono="vino">
+    <h2>Llegaste temprano.</h2>
+    <p>Marginalia está por abrir. Guarda esta página y vuelve el día del lanzamiento.</p>
+    <div class="acciones">
+      <a class="boton principal" href="#cierre" aria-disabled="true"><small>Próximamente en</small><strong>Google Play</strong></a>
+      <a class="boton vidrio" href="#cierre" aria-disabled="true"><small>Pronto en</small><strong>App Store</strong></a>
+    </div>
+  </section>
 </main>
+
+<footer class="envoltura">
+  <div class="fila">
+    <span>Marginalia · un proyecto de Cat On Mars</span>
+    <nav aria-label="Legal"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a><a href="eliminar-cuenta.html">Eliminar cuenta</a><a href="mailto:soporte@catonmars.com">soporte@catonmars.com</a></nav>
+  </div>
+  <p class="creditos">Imágenes de dominio público vía Wikimedia Commons: Montaigne, Essais, ejemplar de Burdeos (1588); Henri Fantin-Latour, La lecture (1877); Johannes Vermeer, A Lady Writing (National Gallery of Art, CC0); Giuseppe Maria Crespi, Book shelf with music writings (1725); portada de Don Quijote (Juan de la Cuesta, 1605) y grabado de Gustave Doré.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  // Tono de la aurora por sección.
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) document.body.dataset.tono = e.target.dataset.tono; }),
+    { rootMargin: '-45% 0px -45% 0px' });
+  document.querySelectorAll('section[data-tono]').forEach(s => io.observe(s));
+
+  // Reseña interactiva.
+  const estrella = 'M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z';
+  const caja = document.getElementById('estrellas');
+  for (let i = 0; i < 5; i++) caja.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 24 24"><defs><clipPath id="m${i}"><rect id="q${i}" width="24" height="24"/></clipPath></defs><path class="fondo" d="${estrella}"/><path class="relleno" clip-path="url(#m${i})" d="${estrella}"/></svg>`);
+  const campoNota = document.getElementById('campo-nota'), campoValor = document.getElementById('campo-valor');
+  const pintar = () => {
+    document.getElementById('escrita').textContent = campoNota.value || ' ';
+    const v = +campoValor.value / 2;
+    for (let i = 0; i < 5; i++) document.getElementById('q' + i).setAttribute('width', Math.max(0, Math.min(1, v - i)) * 24);
+    document.getElementById('valor-num').textContent = v.toLocaleString('es') + ' de 5';
+  };
+  campoNota.addEventListener('input', pintar); campoValor.addEventListener('input', pintar);
+  document.getElementById('campo-spoiler').addEventListener('change', e => document.getElementById('aviso-spoiler').classList.toggle('si', e.target.checked));
+  document.getElementById('controles').addEventListener('submit', e => e.preventDefault());
+  document.querySelectorAll('.opciones').forEach(g => g.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    if (g.dataset.grupo === 'animo') document.getElementById('chip-animo').textContent = b.textContent;
+    if (g.dataset.grupo === 'ritmo') document.getElementById('chip-ritmo').textContent = 'Ritmo ' + b.textContent.toLowerCase();
+  }));
+  pintar();
+
+  // Libros por mes (ejemplo).
+  const meses = [['Ene', 2], ['Feb', 1], ['Mar', 3], ['Abr', 2], ['May', 1], ['Jun', 2], ['Jul', 3], ['Ago', 1], ['Sep', 2], ['Oct', 1], ['Nov', 0], ['Dic', 0]];
+  document.getElementById('cal').innerHTML = meses.map(([m, n]) =>
+    `<div class="mes"><b>${n || ''}</b><i class="${n ? 'lleno' : ''}" style="height:${Math.max(6, n * 30)}px"></i>${m}</div>`).join('');
+
+  if (!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add('js-vivo');
+
+  const cels = gsap.utils.toArray('.cel');
+  const imgs = cels.map(c => c.querySelector('img'));
+  const ease = 'expo.out';
+
+  // Anillo de seis posiciones: centro, izquierda, tres ocultas atrás y derecha.
+  const POS = [
+    { xPercent: -50, yPercent: -50, scale: 1, rotation: 0, autoAlpha: 1, zIndex: 3 },
+    { xPercent: -132, yPercent: -45, scale: .8, rotation: -9, autoAlpha: .9, zIndex: 2 },
+    { xPercent: -112, yPercent: -55, scale: .6, rotation: -4, autoAlpha: 0, zIndex: 1 },
+    { xPercent: -50, yPercent: -58, scale: .55, rotation: 0, autoAlpha: 0, zIndex: 0 },
+    { xPercent: 12, yPercent: -55, scale: .6, rotation: 4, autoAlpha: 0, zIndex: 1 },
+    { xPercent: 32, yPercent: -45, scale: .8, rotation: 9, autoAlpha: .9, zIndex: 2 },
+  ];
+  const N = POS.length;
+  const pos = (i, s) => POS[(i + s) % N];
+  const alCentro = s => (N - (s % N)) % N;
+
+  // Puntos y leyenda de la pantalla del centro.
+  const puntos = document.querySelector('.puntos');
+  cels.forEach(c => puntos.insertAdjacentHTML('beforeend', `<button type="button" aria-label="${c.dataset.titulo}"></button>`));
+  const botones = [...puntos.children];
+  const titulo = document.getElementById('leyenda-titulo'), texto = document.getElementById('leyenda-texto');
+  const marcar = (s) => {
+    const c = cels[alCentro(s)];
+    botones.forEach((b, i) => b.setAttribute('aria-current', i === alCentro(s)));
+    gsap.timeline().to('.leyenda strong, .leyenda span', { autoAlpha: 0, y: -6, duration: .2 })
+      .add(() => { titulo.textContent = c.dataset.titulo; texto.textContent = c.dataset.texto; })
+      .to('.leyenda strong, .leyenda span', { autoAlpha: 1, y: 0, duration: .35, ease });
+  };
+
+  let paso = 0;
+  const girar = (s) => {
+    paso = s;
+    cels.forEach((c, i) => gsap.to(c, { ...pos(i, s), duration: 1.1, ease: 'power3.inOut', overwrite: 'auto' }));
+    marcar(s);
+  };
+
+  // Entrada: un celular pequeño al centro de la pantalla pasa capturas rápido, crece, se abre en abanico,
+  // el grupo viaja a su lugar y después aparecen los textos.
+  const fotos = imgs.map(im => im.src);
+  const anillo = document.querySelector('.anillo-cel');
+  const zona = anillo.getBoundingClientRect();
+  gsap.set(anillo, { x: innerWidth / 2 - (zona.left + zona.width / 2), y: innerHeight / 2 - (zona.top + zona.height / 2) });
+  cels.forEach((c, i) => gsap.set(c, { ...POS[0], scale: .34, autoAlpha: i === 0 ? 1 : 0, zIndex: i === 0 ? 3 : 1 }));
+  gsap.set('.textos > *, .leyenda', { autoAlpha: 0, y: 24 });
+
+  let k = 0;
+  gsap.timeline({ onComplete: arrancar })
+    .to({}, { duration: 1.3, onUpdate() {
+        const n = Math.floor(this.progress() * 13);
+        if (n !== k) { k = n; imgs[0].src = fotos[n % fotos.length]; }
+      }, onComplete() { imgs[0].src = fotos[0]; } })
+    .to(cels[0], { scale: 1, duration: 1, ease: 'expo.inOut' })
+    .to(cels.slice(1), { duration: .9, ease, stagger: .05,
+      xPercent: i => pos(i + 1, 0).xPercent, yPercent: i => pos(i + 1, 0).yPercent, scale: i => pos(i + 1, 0).scale,
+      rotation: i => pos(i + 1, 0).rotation, autoAlpha: i => pos(i + 1, 0).autoAlpha, zIndex: i => pos(i + 1, 0).zIndex }, '-=.4')
+    .to(anillo, { x: 0, y: 0, duration: 1.1, ease: 'expo.inOut' }, '+=.15')
+    .to('.textos > *', { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease }, '-=.45')
+    .to('.leyenda', { autoAlpha: 1, y: 0, duration: .8, ease }, '<.2');
+
+  // Rotación automática cada 3,2 segundos; se detiene fuera de pantalla o con la pestaña oculta.
+  let reloj = null, visible = true;
+  const programar = () => { clearInterval(reloj); reloj = setInterval(() => { if (visible && !document.hidden) girar(paso + 1); }, 3200); };
+  function arrancar() {
+    marcar(0); programar();
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(document.getElementById('escenario'));
+    // Un punto o un celular lleva directo a su pantalla, avanzando siempre hacia delante.
+    const irA = (i) => { if (alCentro(paso) === i) return; let s = paso + 1; while (alCentro(s) !== i) s++; girar(s); programar(); };
+    botones.forEach((b, i) => b.addEventListener('click', () => irA(i)));
+    cels.forEach((c, i) => c.addEventListener('click', () => irA(i)));
+  }
+
+  // Entradas de las secciones de abajo.
+  gsap.utils.toArray('.bloque > h2, .bloque > .intro, .bloque h2, .controles > *, .panel, .grupo-p, .losetas details, .cierre > *').forEach(el =>
+    gsap.from(el, { y: 26, opacity: 0, duration: .9, ease, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
+  gsap.utils.toArray('.par').forEach(par => {
+    const t = gsap.timeline({ scrollTrigger: { trigger: par, start: 'top 75%', once: true } });
+    t.fromTo(par.querySelector('.obra img'), { clipPath: 'inset(0 0 100% 0)', scale: 1.15 }, { clipPath: 'inset(0 0 0% 0)', scale: 1, duration: 1.2, ease: 'power3.inOut' })
+     .from(par.querySelectorAll('.hoy, h3, p'), { y: 22, opacity: 0, stagger: .08, duration: .8, ease }, '-=.6');
+  });
+  gsap.from('.tarjeta', { y: 50, opacity: 0, rotation: -2, duration: 1.1, ease, scrollTrigger: { trigger: '#resena', start: 'top 75%', once: true } });
+
+  // Reto: el anillo y las barras se llenan.
+  const reto = gsap.timeline({ scrollTrigger: { trigger: '#reto', start: 'top 78%', once: true } });
+  reto.from('.anillo .valor', { attr: { 'stroke-dashoffset': 100 }, duration: 1.4, ease })
+      .from('.pista i', { scaleX: 0, duration: 1.1, stagger: .12, ease }, '-=1.1')
+      .from('.racha-num #racha', { textContent: 0, snap: { textContent: 1 }, duration: 1.2, ease: 'power2.out' }, '<')
+      .from('.semana i', { scale: .4, opacity: 0, stagger: .06, duration: .5, ease: 'back.out(2)' }, '<.2')
+      .from('.mes i', { scaleY: 0, stagger: .05, duration: .8, ease }, '<.1');
+})();
+</script>
 </body>
 </html>
