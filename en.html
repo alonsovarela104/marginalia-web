@@ -19,7 +19,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
-<script>document.documentElement.classList.add('js'); document.documentElement.dataset.paleta = 'tinta';</script>
+<script>
+  document.documentElement.classList.add('js'); document.documentElement.dataset.paleta = 'tinta';
+  // Al recargar, volver siempre arriba para que la entrada de los celulares se vea completa.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) { scrollTo(0, 0); addEventListener('pageshow', () => scrollTo(0, 0)); }
+</script>
 <style>
   /* Escenario oscuro con la aurora de la app; los celulares son el protagonista y giran entre sí con el scroll. */
   :root {
