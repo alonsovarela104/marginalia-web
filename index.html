@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Spectral:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
 <script>document.documentElement.classList.add('js'); document.documentElement.dataset.paleta = 'tinta';</script>
 <style>
   /* Escenario oscuro con la aurora de la app; los celulares son el protagonista y giran entre sí con el scroll. */
@@ -35,13 +35,13 @@
     --tono-1: #4a1830;
     --tono-2: #34183f;
     --tono-3: #17332a;
-    --letra: "Spectral", Georgia, serif;
-    --titulos: "Cormorant Garamond", Georgia, serif;
+    --letra: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --titulos: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
     --margen: clamp(16px, 4vw, 56px);
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-    --t-1: clamp(48px, 7vw, 104px);
-    --t-2: clamp(36px, 4.6vw, 66px);
-    --t-3: clamp(24px, 2.3vw, 31px);
+    --t-1: clamp(44px, 6.4vw, 96px);
+    --t-2: clamp(32px, 4.2vw, 60px);
+    --t-3: clamp(21px, 2vw, 27px);
     --t-4: 18px;
     --t-5: 15px;
   }
@@ -65,7 +65,7 @@
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--vino); outline-offset: 3px; border-radius: 6px; }
   img { display: block; max-width: 100%; }
-  h1, h2, h3 { font-family: var(--titulos); font-weight: 600; letter-spacing: -.01em; line-height: 1.04; text-wrap: balance; }
+  h1, h2, h3 { font-family: var(--titulos); font-weight: 650; letter-spacing: -.03em; line-height: 1.02; text-wrap: balance; font-variation-settings: "opsz" 96; }
   .envoltura { padding-inline: var(--margen); }
 
   .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--fondo); }
@@ -81,8 +81,8 @@
             backdrop-filter: blur(20px) saturate(1.2); -webkit-backdrop-filter: blur(20px) saturate(1.2); }
 
   .barra { position: fixed; inset: 0 0 auto; z-index: 30; display: flex; align-items: center; gap: 28px; padding: 18px var(--margen); }
-  .barra .logo { display: flex; align-items: center; gap: 10px; font: 600 28px/1 var(--titulos); text-decoration: none; margin-right: auto; }
-  .barra .logo svg { width: 30px; height: auto; fill: var(--vino); transition: fill .4s ease; }
+  .barra .logo { display: flex; align-items: center; gap: 10px; font: 700 22px/1 var(--titulos); letter-spacing: -.02em; text-decoration: none; margin-right: auto; }
+  .barra .logo svg { width: 26px; height: auto; fill: var(--vino); transition: fill .4s ease; }
   .barra nav { display: flex; gap: 22px; font-size: 15px; color: var(--texto-2); }
   .barra nav a { text-decoration: none; transition: color .2s ease; }
   .barra nav a:hover { color: var(--texto); }
@@ -124,7 +124,7 @@
   .js-vivo .cel { transform: none; display: block; }
 
   .leyenda { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; z-index: 4; }
-  .leyenda strong { display: block; font: 600 24px/1.2 var(--titulos); }
+  .leyenda strong { display: block; font: 600 20px/1.2 var(--titulos); letter-spacing: -.01em; }
   .leyenda span { display: block; color: var(--texto-2); font-size: 15px; margin-top: 2px; }
   .puntos { display: flex; justify-content: center; gap: 4px; margin-top: 10px; }
   .puntos button { width: 24px; height: 24px; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; }
@@ -218,13 +218,13 @@
   .anillo circle { fill: none; stroke-width: 8; }
   .anillo .base { stroke: rgba(255,255,255,.08); }
   .anillo .valor { stroke: var(--vino); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
-  .anillo text { fill: var(--texto); font: 600 22px var(--titulos); }
-  .reto-principal b { display: block; font: 600 34px/1.1 var(--titulos); }
+  .anillo text { fill: var(--texto); font: 650 20px var(--titulos); }
+  .reto-principal b { display: block; font: 650 30px/1.1 var(--titulos); letter-spacing: -.02em; }
   .reto-principal span { font-size: 15px; color: var(--texto-2); }
   .barra-dato { display: flex; justify-content: space-between; font-size: 15px; color: var(--texto-2); margin-top: 14px; font-variant-numeric: tabular-nums; }
   .pista { height: 6px; border-radius: 9px; background: rgba(255,255,255,.08); margin-top: 6px; overflow: hidden; }
   .pista i { display: block; height: 100%; background: var(--vino); border-radius: inherit; transform-origin: left; }
-  .racha-num { font-family: var(--titulos); font-size: 72px; font-weight: 600; letter-spacing: -.01em; line-height: 1; font-variant-numeric: lining-nums proportional-nums; }
+  .racha-num { font-family: var(--titulos); font-size: 64px; font-weight: 700; letter-spacing: -.04em; line-height: 1; font-variant-numeric: lining-nums proportional-nums; }
   .racha-num small { font-size: 18px; font-weight: 500; color: var(--texto-2); letter-spacing: 0; margin-left: 6px; }
   .semana { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 22px; text-align: center; font-size: 13px; color: var(--texto-2); }
   .semana i { display: block; aspect-ratio: 1; border-radius: 10px; background: rgba(255,255,255,.07); margin-top: 6px; }
