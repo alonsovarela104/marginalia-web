@@ -4,31 +4,74 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Delete your Marginalia account | Marginalia</title>
+<meta name="theme-color" content="#0c1016">
+<link rel="alternate" hreflang="es" href="eliminar-cuenta.html">
+<link rel="icon" type="image/svg+xml" href="assets/cuervo.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap">
 <style>
-  :root { color-scheme: dark; }
-  body { margin: 0; background: #0D0D0D; color: #F2EDE4;
-    font-family: Spectral, Georgia, serif; font-size: 17px; line-height: 1.65; }
-  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
-  h1, h2, .brand { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; }
-  h1 { font-size: 40px; line-height: 1.15; margin: 8px 0 24px; }
-  h2 { font-size: 26px; margin: 40px 0 8px; }
-  .brand { font-size: 22px; margin: 0; }
-  a { color: #C9687F; }
-  .brand a { color: #F2EDE4; text-decoration: none; }
-  ul { padding-left: 22px; }
-  li { margin-bottom: 8px; }
-  li::marker { color: #A8405A; }
-  p { color: #D9D2C6; }
-  .button { display: inline-block; padding: 14px 28px; border-radius: 12px;
-    background: #A8405A; color: #FBF7F0; text-decoration: none; font-weight: 500; }
-  .button.secondary { background: transparent; border: 1px solid #A8405A; color: #F2EDE4; }
+  :root {
+    color-scheme: dark;
+    --fondo: #0c1016;
+    --superficie: #161c25;
+    --texto: #f1f0ee;
+    --texto-2: #c4c0bc;
+    --texto-3: #8f8b88;
+    --acento: #e0577c;
+    --borde: rgba(255, 255, 255, .09);
+    --letra: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --margen: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--fondo); }
+  body { background: var(--fondo); color: var(--texto); font: 400 17px/1.7 var(--letra); -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--acento); color: #fff; }
+  a { color: var(--acento); text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; border-radius: 6px; }
+  .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .aurora span { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .5; }
+  .aurora .a1 { width: 60vmax; height: 45vmax; left: -24vmax; top: -22vmax; background: #13294a; }
+  .aurora .a2 { width: 50vmax; height: 40vmax; right: -26vmax; top: 30vh; background: #3a1838; }
+  header, main, footer { position: relative; z-index: 1; }
+  .barra { display: flex; align-items: center; gap: 24px; padding: 18px var(--margen); }
+  .logo { display: flex; align-items: center; gap: 10px; font: 700 22px/1 var(--letra); letter-spacing: -.02em; color: var(--texto); text-decoration: none; margin-right: auto; }
+  .logo svg { width: 26px; height: auto; fill: var(--acento); }
+  .barra .volver { font-size: 15px; color: var(--texto-2); text-decoration: none; }
+  .barra .volver:hover { color: var(--texto); }
+  .idioma { font-size: 15px; color: var(--texto-2); }
+  .idioma a { color: var(--texto-2); }
+  .idioma b { color: var(--texto); font-weight: 600; }
+  @media (max-width: 560px) { .barra .volver { display: none; } }
+  main { width: min(760px, calc(100% - 2 * var(--margen))); margin: clamp(32px, 6vw, 72px) auto 0; }
+  h1 { font-size: clamp(36px, 5.4vw, 60px); font-weight: 650; letter-spacing: -.03em; line-height: 1.04; text-wrap: balance; margin-bottom: 18px; font-variation-settings: "opsz" 96; }
+  h1 + p { color: var(--texto-3); font-size: 15px; margin-bottom: 28px; }
+  h2 { font-size: clamp(22px, 2.4vw, 28px); font-weight: 650; letter-spacing: -.02em; line-height: 1.15; margin: 44px 0 12px; padding-top: 28px; border-top: 1px solid var(--borde); }
+  p { color: var(--texto-2); margin-bottom: 14px; }
+  ul, ol { padding-left: 22px; margin-bottom: 16px; color: var(--texto-2); }
+  li { margin-bottom: 9px; padding-left: 4px; }
+  li::marker { color: var(--acento); }
+  strong, b { color: var(--texto); font-weight: 600; }
+  .button { display: inline-block; padding: 13px 24px; border-radius: 14px; background: var(--acento); color: #fff; text-decoration: none; font-weight: 600; margin: 6px 8px 6px 0; }
+  .button.secondary { background: var(--superficie); border: 1px solid var(--borde); color: var(--texto); }
+  footer { width: min(1080px, calc(100% - 2 * var(--margen))); margin: 96px auto 0; padding: 28px 0 40px; border-top: 1px solid var(--borde);
+           display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 24px; font-size: 15px; color: var(--texto-3); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+  footer a { color: var(--texto-3); text-decoration: none; }
+  footer a:hover, footer a[aria-current] { color: var(--texto); }
 </style>
 </head>
 <body>
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+<header class="barra">
+  <a class="logo" href="en.html"><svg viewBox="0 0 1221 1163" aria-hidden="true"><path d="M559 264C573.949 264 588.308 267.101 603 269.565C614.969 271.572 627.012 272.798 639 274.573C652.018 276.499 667.075 275.627 679 281.912C696.07 290.909 710.016 310.241 704.711 330C702.156 339.516 696.763 350.358 688.985 356.61C680.497 363.433 668.711 366.559 659 371.258C640.425 380.246 622.405 389.952 605 401.054C582.93 415.132 562.895 432.886 545.089 452C531.223 466.886 519.019 483.298 504.961 498C483.585 520.355 458.074 537.94 434 557.2C404.983 580.415 374.321 604.204 350.615 633C343.23 641.97 329.106 659.347 344.015 668.12C345.899 669.228 347.9 670.098 350 670.699C352.951 671.543 355.949 671.869 359 672C344.576 684.293 327.602 694.271 312 705.025C282.173 725.585 252.295 746.565 224 769.2C213.211 777.831 201.851 786.206 193.095 797C190.288 800.461 185.453 805.945 186.412 810.852C187.262 815.198 193.887 814.086 197 813.536C208.232 811.552 219.209 807.601 230 804C275.955 788.667 321.71 772.4 367 755.192C430.102 731.216 493.243 707.165 555 679.86C596.188 661.65 637.479 643.136 675 617.999C721.471 586.866 765.913 539.376 769.911 481C770.926 466.169 765.738 454.062 763 440C805.368 482.726 778.991 548.454 746.385 588C740.206 595.494 732.903 602.175 726 608.996C717.75 617.148 708.541 624.746 699 631.34C623.782 683.328 536.137 716.462 451 748.575C424.501 758.57 397.681 767.812 371 777.308C359.687 781.334 346.443 783.348 336 789.363C322.223 797.297 310.193 810.265 298 820.414C272.494 841.642 247.195 863.134 222 884.729C215.58 890.232 208.763 895.616 203.185 902C201.11 904.375 198.302 907.586 198.658 910.996C199.158 915.781 205.196 919.068 209 921.019C220.207 926.765 234.699 927.167 247 925.714C256.673 924.573 266.307 921.769 276 921.089C289.78 920.124 303.369 921.549 317 918.324C339.752 912.942 360.828 900.679 380 887.656C401.303 873.185 421.879 857.094 441 839.83C453.01 828.987 464.326 816.489 478 807.698C488.724 800.804 501.121 796.056 513 791.576C521.415 788.403 530.904 783.834 540 783.383C548.026 782.985 558.146 786.624 566 788.406C570.149 789.347 576.04 787.749 579.682 790.179C584.19 793.187 581.663 804.182 582.924 809C585.871 820.255 592.773 829.211 600.081 838C611.372 851.579 622.57 865.205 633.6 879C636.837 883.048 644.965 890.338 644.258 895.995C643.147 904.888 630.12 902.998 624 903C609.389 903.006 591.796 908.831 591 926L857 926C856.485 914.754 846.869 905.704 836 903.39C820.857 900.165 804.313 905.026 789 902.56C773.629 900.085 764.689 887.028 756.667 875C749.482 864.228 742.135 853.611 734.72 843C730.267 836.628 720.205 826.279 721.862 818.039C723.611 809.337 728.871 801.687 732.819 793.961C736.822 786.125 740.191 776.413 747.104 770.529C751.677 766.638 757.661 764.622 763 762.056C771.517 757.961 779.98 753.311 788 748.316C811.197 733.867 833.232 717.052 851.911 697C868.238 679.473 880.941 659.722 895.669 641C902.172 632.733 909.782 625.427 916.105 617C935.81 590.74 953.25 560.561 962.769 529C966.58 516.366 970.377 504.324 970.961 491C971.579 476.888 971.978 458.583 964.517 446C961.865 441.527 957.958 437.651 954 434.325C951.067 431.86 947.342 429.963 946.318 425.985C945.289 421.989 946 417.102 946 413C946 406.65 945.442 400.316 944.83 394C942.287 367.736 937.01 341.053 928.914 316C909.462 255.811 870.552 190.727 803 178.465C790.677 176.228 776.47 175.963 764 177.17C749.236 178.599 733.022 183.202 720 190.312C711.204 195.116 704.306 203.335 694 204.711C658.341 209.47 619.707 209.954 588 229.204C575.954 236.518 560.546 248.902 559 264z"/></svg>Marginalia</a>
+  <a class="volver" href="en.html">Back to home</a>
+  <span class="idioma"><a href="eliminar-cuenta.html" lang="es" hreflang="es">ES</a> · <b>EN</b></span>
+</header>
 <main>
-<p class="brand"><a href="index.html">Marginalia</a></p>
+<!-- contenido -->
 <h1>Delete your Marginalia account</h1>
 <p>You can delete your account and all its data at any time.</p>
 <h2>In the app</h2>
@@ -45,7 +88,11 @@
 <li>Your reports and blocks.</li>
 </ul>
 <p>Books (titles and covers) aren't your data and stay in the catalog. We don't keep copies of your data after deleting it.</p>
-
+<!-- /contenido -->
 </main>
+<footer>
+  <span>Marginalia · a Cat On Mars project</span>
+  <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="delete-account.html" aria-current="page">Delete account</a><a href="mailto:soporte@catonmars.com">soporte@catonmars.com</a></nav>
+</footer>
 </body>
 </html>
